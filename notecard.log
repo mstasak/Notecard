@@ -1,0 +1,4 @@
+2026-10-01 16:37:26,793 | INFO | notecard | Cardfile.py:20 | App launched
+2026-10-01 16:37:28,666 | INFO | model | model.py:52 | Loading Card object from db card row with id=1
+2026-10-01 16:37:28,668 | INFO | model | model.py:97 | success
+2026-10-01 16:37:30,549 | INFO | notecard | Cardfile.py:24 | App terminating.

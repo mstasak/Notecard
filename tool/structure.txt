@@ -1,0 +1,33 @@
+MVC-ish take on Python GUI Dev
+
+App talks to controllers
+Controllers talk to model and to views
+Views listen to controllers and send data and events to controllers (and indirectly to app)
+
+
+
+app
+  mainwindow
+    cardfilecontroller
+      cardfileview
+      cardfilemodel
+      categorypicker
+      searchview
+    categorycontroller
+      categoryview
+    aboutcontroller
+      aboutview
+    settingscontroller
+      settingsview
+
+    *
+      settingsaccess
+      dbmodel
+        dbconnection
+        dbschema
+        dbsampledata
+      stringutil
+      otherutil?
+
+
+      
