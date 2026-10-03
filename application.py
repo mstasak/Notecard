@@ -1,30 +1,31 @@
 # NOTECARDS APP
 # Windows 11, Python 3.14.6+, PySide 6.1+, SQLite 3+
-# using a shared .venv; may need to use PS G:\Dev\Python\ExperimentZone> ..\.shared_venv\scripts\activate.ps1 
+# using a shared .venv; may need to use
+# PS G:\Dev\Python\Notecard> ..\.shared_venv\scripts\activate.ps1 
 
+# System imports
+from typing import Any
 #import sys
 #import logging
+
+# 3rd party lib imports
 from PySide6 import QtWidgets #, QtCore, QtGui
 from PySide6.QtWidgets import QMainWindow
 #from PySide6.QtCore import QSettings #, QCoreApplication
+
+# internal app imports
 import model
+from model import CardfileModel
 from cfMainWindow import CFMainWindow
 from cfMainWindowController import CFMainWindowController
-from model import CardfileModel
-from typing import Any
 #from settings import gSettings
 #import services
 
-# APP
+# QT Application class, instantiated by Notecards.py.
 class CardFileApp(QtWidgets.QApplication):
 
-    #global app #: CardFileApp
-    #settings: QSettings
-    #model: model.CardfileModel
-    #services.gLogger = logging.getLogger()
-    #services.gLogger.info("logger opened at stream?")
-
-    def __init__(self, orgName:str, orgDomain:str, appName:str, args: list[Any]) -> None:
+    def __init__(self, orgName:str, orgDomain:str, appName:str, 
+                 args: list[Any]) -> None:
         super().__init__(args)
         #self.window: QMainWindow
         #self.windowController: CFMainWindowController
@@ -37,7 +38,8 @@ class CardFileApp(QtWidgets.QApplication):
         #services.gSettings = self.settings
         #self.settings.sync() #needed? no
         
-        #services.gSettings.setValue("prevwhatsit", self.settings.value("whatsit"))
+        #services.gSettings.setValue("prevwhatsit",
+        #                            self.settings.value("whatsit"))
         #services.gSettings.setValue("whatsit", "test1")
         #self.model = model.CardfileModel()
 
@@ -56,16 +58,10 @@ class CardFileApp(QtWidgets.QApplication):
         windowController.shutdown()
         return rslt
 
-# Settings
-
-# Search
-
-# Keyword Manager
-
-# keyword selection
-
-#main
-
+# This is the top window object created by CardFileApp.
+# All it does is hold a CFMainWindow container widget.
+# Seems useless, but eliminating it or using QMainWindow
+# instead of a subclass seemed to cause problems. 
 class MainWindow(QMainWindow):
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:

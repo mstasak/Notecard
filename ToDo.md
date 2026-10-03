@@ -5,7 +5,7 @@ To Do:
 - categories weakly implemented
   - remove edit? No
   - description as tooltip in select listwidget?
-  - consider catg filtering of nc list
+  - add catg filtering of nc list
 - update notecard list if card update changes it (title changed)
 - implement autosave & remove save button
 - implement new
@@ -22,4 +22,9 @@ Hold:
 Done:
 - get app launch working without picking file first - done - launch.json
 - put in github
+- rename EventCentral MessageHub
 
+Future:
+- Text size
+- Restore window size and position on launch
+- Colored icons for cards based on category? user selectable?

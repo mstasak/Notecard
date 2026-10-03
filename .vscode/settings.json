@@ -2,7 +2,7 @@
     "python-envs.defaultEnvManager": "ms-python.python:system",
     "python-envs.pythonProjects": [
         {
-            "path": "Cardfile.py",
+            "path": "Notecards.py",
             "envManager": "ms-python.python:system",
             "packageManager": "ms-python.python:pip"
         }

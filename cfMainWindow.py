@@ -38,22 +38,28 @@ from PySide6.QtWidgets import ( #QApplication,
 #from PySide6.QtCore.Qt import QAlignment
 
 #project-local imports
-from eventcentral import gEventCentral, EventCentral
-from datastructures import NotecardRec, CategoryRec, NotecardIdTitleRec, EventRec, EventArgRec
+from messagehub import gMessageHub #, MessageCenter
+from datastructures import (CardRec, CategoryRec, CardIdTitleRec,
+    MsgRec, MsgArgRec)
 
 class CFMainWindow(QObject):
 
     def __init__(self) -> None:
         super().__init__()
-        self.ec: EventCentral = gEventCentral
-        self.origCardData: NotecardRec = NotecardRec(notecardId=None,title='',body='',categories=[])
+        self.msgHub = gMessageHub
+        self.origCardData = CardRec(
+            notecardId=None,
+            title='',
+            body='',
+            categories=[]
+        )
     
     def saveCardDetails(self) -> None:
         pass
 
-    def populateCardDetails(self, sender: str, evt: EventRec) -> None: # type: ignore
+    def populateCardDetails(self, sender: str, evt: MsgRec) -> None: # type: ignore
         #print(sender)
-        cRec: NotecardRec = evt.eventargs[0].value
+        cRec: CardRec = evt.eventargs[0].value
         self.origCardData = deepcopy(cRec)
         #print(cRec)
         self.lineEditNotecardTitle.setText(cRec.title)
@@ -68,8 +74,8 @@ class CFMainWindow(QObject):
             item.setData(Qt.ItemDataRole.UserRole, cat.categoryId)
             i += 1
 
-    def populateCardList(self, sender: str, evt: EventRec) -> None: # type: ignore
-        clRec: list[NotecardIdTitleRec] = evt.eventargs[0].value
+    def populateCardList(self, sender: str, evt: MsgRec) -> None: # type: ignore
+        clRec: list[CardIdTitleRec] = evt.eventargs[0].value
         self.listViewNotecards.clear()
         i : int = 0
         for cat in clRec:
@@ -162,17 +168,17 @@ class CFMainWindow(QObject):
         #self.listViewNotecards.itemSelectionChanged.connect(self.lvcChanged)
         self.listViewNotecards.itemSelectionChanged.connect(
             lambda:
-                self.ec.post(
+                self.msgHub.post(
                     sender='CFMainWindow',
-                    event=EventRec(
+                    event=MsgRec(
                         topic='CFMainWindow(input)',
                         eventname='cardSelectionChanged',
                         eventargs=[
-                            EventArgRec(
+                            MsgArgRec(
                                 name='selectedRow',
                                 value=self.listViewNotecards.currentIndex().row()
                             ),
-                            EventArgRec(
+                            MsgArgRec(
                                 name='selectedNotecardId',
                                 value=self.listViewNotecards.item(
                                     self.listViewNotecards.currentIndex().row())
@@ -211,26 +217,26 @@ class CFMainWindow(QObject):
 
         self.retranslateUi(MainWindow) #needed even for one lang - sets UI text literals for default language
         QMetaObject.connectSlotsByName(MainWindow)
-        self.ec.listen(
+        self.msgHub.listen(
             lsnrName='CFMainWindow',
             evtTopic='CFMainWindow(output)',
             evtName='fillCardData',
             rspCall=self.populateCardDetails
         )
-        self.ec.listen(
+        self.msgHub.listen(
             lsnrName='CFMainWindow',
             evtTopic='CFMainWindow(output)',
             evtName='fillCardListData',
             rspCall=self.populateCardList
         )
-        self.ec.listen(
+        self.msgHub.listen(
             lsnrName='CFMainWindow',
             evtTopic='CFMainWindow(output)',
             evtName='fillStatus',
             rspCall=self.changeStatus
         )
 
-    def changeStatus(self, sender: str, evt: EventRec) -> None:
+    def changeStatus(self, sender: str, evt: MsgRec) -> None:
         self.labelStatus.setText(evt.eventargs[0].value)
 
     # setupUi
@@ -316,8 +322,8 @@ class CFMainWindow(QObject):
 
         # self.pushButtonNew.clicked.connect(self.newClicked)
         self.pushButtonNew.clicked.connect(
-            lambda: self.ec.post(sender='CFMainWindow',
-                                 event=EventRec(
+            lambda: self.msgHub.post(sender='CFMainWindow',
+                                 event=MsgRec(
                                      topic='CFMainWindow(input)',
                                      eventname='newClicked',
                                      eventargs=[])))
@@ -332,8 +338,8 @@ class CFMainWindow(QObject):
             # )
         )
         self.pushButtonDelete.clicked.connect(
-            lambda: self.ec.post(sender='CFMainWindow', 
-                                 event=EventRec(
+            lambda: self.msgHub.post(sender='CFMainWindow', 
+                                 event=MsgRec(
                                      topic='CFMainWindow(input)',
                                      eventname='deleteClicked',
                                      eventargs=[])))
@@ -347,16 +353,16 @@ class CFMainWindow(QObject):
     #     self.ec.post(sender='CFMainWindow', event=evt)
 
     def saveClicked(self):
-        self.ec.post(sender='CFMainWindow',
-                     event=EventRec(
+        self.msgHub.post(sender='CFMainWindow',
+                     event=MsgRec(
                          topic='CFMainWindow(input)',
                          eventname='saveClicked',
                          eventargs=[
-                            EventArgRec(
+                            MsgArgRec(
                                 name='origRow',
                                 value=self.origCardData # :CardRec
                             ),
-                            EventArgRec(
+                            MsgArgRec(
                                 name='changedRow',
                                 value=self.currentCardData() # :CardRec
                             ),
@@ -364,8 +370,8 @@ class CFMainWindow(QObject):
                     )
         )
 
-    def currentCardData(self) -> NotecardRec:
-        return NotecardRec(
+    def currentCardData(self) -> CardRec:
+        return CardRec(
             notecardId=self.origCardData.notecardId,
             title=self.lineEditNotecardTitle.text(),
             body=self.textEditNotecardBody.toPlainText(),

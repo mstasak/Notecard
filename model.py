@@ -16,13 +16,13 @@ import logging
 from PySide6.QtCore import QDir, QFile, QStandardPaths #, QLoggingCategory
 from PySide6.QtSql import QSqlDatabase, QSqlQuery, QSqlResult
 
-from datastructures import CategoryRec, NotecardIdTitleRec, NotecardRec #,CategoriesOfCardRec
+from datastructures import CategoryRec, CardIdTitleRec, CardRec #,CategoriesOfCardRec
 
 #dbNormallyClosed: bool = True # LET'S USE REQUESTOPEN(), RELEASEOPEN() instead
 
 logger = logging.getLogger(__name__)
 
-def CardRecsEqual(c1: NotecardRec, c2:NotecardRec) -> bool:
+def CardRecsEqual(c1: CardRec, c2:CardRec) -> bool:
     rslt = True
     if rslt and c1.title != c2.title:
         rslt = False
@@ -32,7 +32,7 @@ def CardRecsEqual(c1: NotecardRec, c2:NotecardRec) -> bool:
         rslt = False
     return rslt
 
-def sortedCatgIdList(c: NotecardRec) -> list[int]:
+def sortedCatgIdList(c: CardRec) -> list[int]:
     rslt = [n.categoryId for n in c.categories if n.selected]
     rslt.sort()
     return rslt
@@ -97,7 +97,7 @@ class Notecard:
         logger.info("success" if rslt else "failed")
         return rslt
 
-    def loadNotecardRec(self, c: NotecardRec) -> None:
+    def loadNotecardRec(self, c: CardRec) -> None:
         self.notecardId = c.notecardId
         self.title = c.title
         self.body = c.body
@@ -177,8 +177,8 @@ class Notecard:
         logger.info(f"{'success' if rslt else 'failed'}")
         return rslt
 
-    def toCardRec(self) -> NotecardRec:
-        return NotecardRec(
+    def toCardRec(self) -> CardRec:
+        return CardRec(
             notecardId=self.notecardId,
             title=self.title,
             body=self.body,
@@ -192,7 +192,7 @@ class CardList:
     def __init__(self) -> None:
         super().__init__()
         #self.cardTitles: list[tuple[int, str]] = []
-        self.cardTitles: list[NotecardIdTitleRec] = []
+        self.cardTitles: list[CardIdTitleRec] = []
 
     def load(self, model: CardfileModel) -> bool:
         rslt: bool = False
@@ -204,9 +204,9 @@ class CardList:
                 if qry.exec():
                     self.cardTitles = []
                     while qry.next():
-                        self.cardTitles.append(NotecardIdTitleRec(qry.value(0), qry.value(1)))
+                        self.cardTitles.append(CardIdTitleRec(qry.value(0), qry.value(1)))
                 else:
-                    self.cardTitles = [NotecardIdTitleRec(-1, "foo bad list load - " + str(qry.isValid()))]
+                    self.cardTitles = [CardIdTitleRec(-1, "foo bad list load - " + str(qry.isValid()))]
                 rslt = True
             finally:
                 model.close()

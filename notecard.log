@@ -1,8 +1,0 @@
-2026-10-01 16:37:26,793 | INFO | notecard | Cardfile.py:20 | App launched
-2026-10-01 16:37:28,666 | INFO | model | model.py:52 | Loading Card object from db card row with id=1
-2026-10-01 16:37:28,668 | INFO | model | model.py:97 | success
-2026-10-01 16:37:30,549 | INFO | notecard | Cardfile.py:24 | App terminating.
-2026-10-01 22:35:20,614 | INFO | notecard | Cardfile.py:20 | App launched
-2026-10-01 22:35:24,294 | INFO | model | model.py:52 | Loading Card object from db card row with id=2
-2026-10-01 22:35:24,296 | INFO | model | model.py:97 | success
-2026-10-01 22:36:40,876 | INFO | notecard | Cardfile.py:24 | App terminating.

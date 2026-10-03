@@ -3,41 +3,41 @@
 
 # Operations on view use eventcentral events and callbacks.
 
-from datastructures import EventRec, EventArgRec
-from eventcentral import gEventCentral #, EventCentral
+from datastructures import MsgRec, MsgArgRec
+from messagehub import gMessageHub #, EventCentral
 from typing import Any
 import model
 #from datastructures import IdTitleRec
 
 class CFMainWindowController:
     def __init__(self) -> None:
-        gEventCentral.listen(lsnrName='CFMainWindowController', evtTopic='CFMainWindow(input)',
-                             evtName='cardSelectionChanged', rspCall=self.recvCardSelChg)
+        gMessageHub.listen(lsnrName='CFMainWindowController', evtTopic='CFMainWindow(input)',
+                           evtName='cardSelectionChanged', rspCall=self.recvCardSelChg)
         
-        gEventCentral.listen(lsnrName='CFMainWindowController',evtTopic='CFMainWindow(input)',
-                             evtName='cardDataSubmit',rspCall=self.recvCardData)
-        gEventCentral.listen(lsnrName='CFMainWindowController',evtTopic='CFMainWindow(input)',
-                             evtName='srchDataSubmit',rspCall=self.recvSrchData)
+        gMessageHub.listen(lsnrName='CFMainWindowController',evtTopic='CFMainWindow(input)',
+                           evtName='cardDataSubmit',rspCall=self.recvCardData)
+        gMessageHub.listen(lsnrName='CFMainWindowController',evtTopic='CFMainWindow(input)',
+                           evtName='srchDataSubmit',rspCall=self.recvSrchData)
 
-        gEventCentral.listen(lsnrName='CFMainWindowController',evtTopic='CFMainWindow(input)',
-                             evtName='newClicked',rspCall=self.bnNewClicked)
-        gEventCentral.listen(lsnrName='CFMainWindowController',evtTopic='CFMainWindow(input)',
-                             evtName='saveClicked',rspCall=self.bnSaveClicked)
-        gEventCentral.listen(lsnrName='CFMainWindowController',evtTopic='CFMainWindow(input)',
-                             evtName='deleteClicked',rspCall=self.bnDeleteClicked)
-        gEventCentral.listen(lsnrName='CFMainWindowController',evtTopic='CFMainWindow(input)',
-                             evtName='searchClicked',rspCall=self.bnSearchClicked)
-        gEventCentral.listen(lsnrName='CFMainWindowController',evtTopic='CFMainWindow(input)',
-                             evtName='pickCatgClicked',rspCall=self.bnPickCatgClicked)
+        gMessageHub.listen(lsnrName='CFMainWindowController',evtTopic='CFMainWindow(input)',
+                           evtName='newClicked',rspCall=self.bnNewClicked)
+        gMessageHub.listen(lsnrName='CFMainWindowController',evtTopic='CFMainWindow(input)',
+                           evtName='saveClicked',rspCall=self.bnSaveClicked)
+        gMessageHub.listen(lsnrName='CFMainWindowController',evtTopic='CFMainWindow(input)',
+                           evtName='deleteClicked',rspCall=self.bnDeleteClicked)
+        gMessageHub.listen(lsnrName='CFMainWindowController',evtTopic='CFMainWindow(input)',
+                           evtName='searchClicked',rspCall=self.bnSearchClicked)
+        gMessageHub.listen(lsnrName='CFMainWindowController',evtTopic='CFMainWindow(input)',
+                           evtName='pickCatgClicked',rspCall=self.bnPickCatgClicked)
 
         self.fillNotecardList()
 
-    def bnNewClicked(self, sender: Any, evt: EventRec):
+    def bnNewClicked(self, sender: Any, evt: MsgRec):
         #if self.saveCardIfNeeded():
             #print('New clicked')
         pass
 
-    def bnSaveClicked(self, sender: Any, evt: EventRec):
+    def bnSaveClicked(self, sender: Any, evt: MsgRec):
         #if self.saveCardIfNeeded():
             #print('New clicked')
         if model.CardRecsEqual(evt.eventargs[0].value, evt.eventargs[1].value):
@@ -50,55 +50,55 @@ class CFMainWindowController:
         #print(evt)
 
     def sendStatus(self, s: str) -> None:
-        gEventCentral.post(sender='CFMainWindowController',
-                           event=EventRec(
-                               topic='CFMainWindow(output)',
-                               eventname='fillStatus',
-                               eventargs=[
-                                   EventArgRec(name='newMessage', value=s),
-                                ]))
+        gMessageHub.post(sender='CFMainWindowController',
+                         event=MsgRec(
+                             topic='CFMainWindow(output)',
+                             eventname='fillStatus',
+                             eventargs=[
+                                 MsgArgRec(name='newMessage', value=s),
+                             ]))
 
-    def bnDeleteClicked(self, sender: Any, evt: EventRec):
+    def bnDeleteClicked(self, sender: Any, evt: MsgRec):
         print('Delete clicked', sender, evt)
 
-    def bnSearchClicked(self, sender: Any, evt: EventRec):
+    def bnSearchClicked(self, sender: Any, evt: MsgRec):
          print('Search clicked', sender, evt)
 
-    def bnPickCatgClicked(self, sender: Any, evt: EventRec):
+    def bnPickCatgClicked(self, sender: Any, evt: MsgRec):
         print('Pick categories clicked', sender, evt)
 
-    def recvCardData(self, sender: str, evt: EventRec):
+    def recvCardData(self, sender: str, evt: MsgRec):
         print('Card data received', sender, evt)
 
-    def recvSrchData(self, sender: str, evt: EventRec):
+    def recvSrchData(self, sender: str, evt: MsgRec):
         print('Search data received', sender, evt)
 
     def fillSrchData(self, target: str):
-        gEventCentral.post(sender='CFMainWindowController',
-                           event=EventRec(topic='CFMainWindow(output)',
-                                          eventname='fillSrchData',
-                                          eventargs=[
-                                              EventArgRec(name='srchString', value='target'),
-                                              #EventArgRec(name='', value=''),
-                                          ]
-                                         )
-                           )
+        gMessageHub.post(sender='CFMainWindowController',
+                         event=MsgRec(topic='CFMainWindow(output)',
+                                        eventname='fillSrchData',
+                                        eventargs=[
+                                            MsgArgRec(name='srchString', value='target'),
+                                            #EventArgRec(name='', value=''),
+                                        ]
+                                       )
+                         )
 
     def fillCardData(self, card: model.Notecard) -> None:
-        gEventCentral.post(sender='CFMainWindowController',
-                           event=EventRec(
-                               topic='CFMainWindow(output)',
-                               eventname='fillCardData',
-                               eventargs=[
-                                   EventArgRec(name='rowData', value=card.toCardRec()),
-                                   #   EventArgRec(name='title', value=card.title),
-                                   #   EventArgRec(name='body', value=card.body),
-                                   #   EventArgRec(name='id', value=card.id),
-                                   #   EventArgRec(name='catgs', value=card.categories),
-                                   #   EventArgRec(name='selcatgids', value=[1,2]),
-                                   #   EventArgRec(name='', value=''),
-                                   #   EventArgRec(name='', value=''),
-                                ]))
+        gMessageHub.post(sender='CFMainWindowController',
+                         event=MsgRec(
+                             topic='CFMainWindow(output)',
+                             eventname='fillCardData',
+                             eventargs=[
+                                 MsgArgRec(name='rowData', value=card.toCardRec()),
+                                 #   EventArgRec(name='title', value=card.title),
+                                 #   EventArgRec(name='body', value=card.body),
+                                 #   EventArgRec(name='id', value=card.id),
+                                 #   EventArgRec(name='catgs', value=card.categories),
+                                 #   EventArgRec(name='selcatgids', value=[1,2]),
+                                 #   EventArgRec(name='', value=''),
+                                 #   EventArgRec(name='', value=''),
+                              ]))
 
     def fillNotecardList(self) -> None:
         #query id, titles
@@ -106,17 +106,17 @@ class CFMainWindowController:
         cardList = model.CardList()
         cardList.load(model.gModel)
         #print(cardList.cardTitles)
-        gEventCentral.post(sender='CFMainWindowController',
-                           event=EventRec(topic='CFMainWindow(output)',
-                                          eventname='fillCardListData',
-                                          eventargs=[
-                                              EventArgRec(name='CardIdTitlesData', value=cardList.cardTitles),
-                                          ]
-                                         )
-                           )
+        gMessageHub.post(sender='CFMainWindowController',
+                         event=MsgRec(topic='CFMainWindow(output)',
+                                        eventname='fillCardListData',
+                                        eventargs=[
+                                            MsgArgRec(name='CardIdTitlesData', value=cardList.cardTitles),
+                                        ]
+                                       )
+                         )
 
 
-    def recvCardSelChg(self, sender: str, evt: EventRec):
+    def recvCardSelChg(self, sender: str, evt: MsgRec):
         #receive    self.ec.post(
         #               sender='CFMainWindow',
         #               event=EventRec(
@@ -138,5 +138,5 @@ class CFMainWindowController:
         self.fillCardData(card)
 
     def shutdown(self) -> None:
-        gEventCentral.removeListener(lsnrName='CFMainWindowController')
+        gMessageHub.removeListener(lsnrName='CFMainWindowController')
 

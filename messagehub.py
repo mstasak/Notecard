@@ -1,13 +1,13 @@
 from typing import Any
 
-from datastructures import EventRec, ListenForRec #, EventArgRec, DelivererRec
+from datastructures import MsgRec, ListenForRec #, EventArgRec, DelivererRec
 
-class EventCentral:
+class MessageCenter:
 
     def __init__(self) -> None:
         self._listeners: list[ListenForRec] = []
 
-    def post(self, sender: str, event: EventRec) -> None:
+    def post(self, sender: str, event: MsgRec) -> None:
         lRec: ListenForRec
         for lRec in self._listeners:
             if ((lRec.topic == '*' or lRec.topic == event.topic) and
@@ -44,7 +44,7 @@ class EventCentral:
         #self._listeners = {}
 
 #global singleton (casual)
-gEventCentral: EventCentral = EventCentral()
+gMessageHub: MessageCenter = MessageCenter()
 
 ### GETTING MESSY, MIGHT WANT TO SIMPLIFY/RESTART
 

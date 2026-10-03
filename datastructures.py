@@ -1,11 +1,11 @@
 from typing import NamedTuple, Any
 from collections.abc import Callable
 
-EventArgRec = NamedTuple('EventArgRec',[('name', str),('value', Any)])
+MsgArgRec = NamedTuple('MsgArgRec',[('name', str),('value', Any)])
 
-EventRec = NamedTuple('EventRec', [('topic',str),('eventname',str),('eventargs', list[EventArgRec])])
+MsgRec = NamedTuple('MsgRec', [('topic',str),('eventname',str),('eventargs', list[MsgArgRec])])
 
-DelivererRec = Callable[[str, EventRec],Any]   
+DelivererRec = Callable[[str, MsgRec],Any]   
 
 ListenForRec = NamedTuple('ListenForRec',
                           [ ('listenerName',str),
@@ -20,16 +20,16 @@ CategoryRec = NamedTuple('CategoryRec', [
     ('selected', bool)
 ])
 
-CategoriesOfNotecardRec = NamedTuple('CategoriesOfNotecardRec', [
+CategoriesOfCardRec = NamedTuple('CategoriesOfCardRec', [
     ('notecardId', int), 
     ('categories', list[CategoryRec]),
 ])
 
-NotecardRec = NamedTuple('NotecardRec', [
+CardRec = NamedTuple('CardRec', [
     ('notecardId', int|None),
     ('title', str),
     ('body', str),
     ('categories', list[CategoryRec])
 ])
 
-NotecardIdTitleRec = NamedTuple('NotecardIdTitleRec', [('notecardId', int), ('title', str)])
+CardIdTitleRec = NamedTuple('CardIdTitleRec', [('notecardId', int), ('title', str)])
