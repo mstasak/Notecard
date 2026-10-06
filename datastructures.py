@@ -3,15 +3,15 @@ from collections.abc import Callable
 
 MsgArgRec = NamedTuple('MsgArgRec',[('name', str),('value', Any)])
 
-MsgRec = NamedTuple('MsgRec', [('topic',str),('eventname',str),('eventargs', list[MsgArgRec])])
+MsgRec = NamedTuple('MsgRec', [('topic',str),('msgName',str),('msgArgs', list[MsgArgRec])])
 
 DelivererRec = Callable[[str, MsgRec],Any]   
 
 ListenForRec = NamedTuple('ListenForRec',
-                          [ ('listenerName',str),
-                            ('topic',str),
-                            ('eventName',str),
-                            ('deliverer', DelivererRec) ])
+                          [('listenerName',str),
+                           ('topic',str),
+                           ('msgName',str),
+                           ('deliverer', DelivererRec)])
 
 CategoryRec = NamedTuple('CategoryRec', [
     ('categoryId', int),
@@ -32,4 +32,6 @@ CardRec = NamedTuple('CardRec', [
     ('categories', list[CategoryRec])
 ])
 
-CardIdTitleRec = NamedTuple('CardIdTitleRec', [('notecardId', int), ('title', str)])
+CardIdTitleRec = NamedTuple('CardIdTitleRec', 
+                            [('notecardId', int),
+                             ('title', str)])

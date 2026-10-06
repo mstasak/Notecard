@@ -11,7 +11,7 @@ class MessageCenter:
         lRec: ListenForRec
         for lRec in self._listeners:
             if ((lRec.topic == '*' or lRec.topic == event.topic) and
-               (lRec.eventName == "*" or lRec.eventName == event.eventname)):
+               (lRec.msgName == "*" or lRec.msgName == event.msgName)):
                 #send it
                 # e = EventRec('topic',
                 #              'myevent',
@@ -29,7 +29,7 @@ class MessageCenter:
             ListenForRec(
                 listenerName=lsnrName,
                 topic=evtTopic,
-                eventName=evtName,
+                msgName=evtName,
                 #sender='any',
                 deliverer=rspCall
             ))

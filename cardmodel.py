@@ -48,7 +48,7 @@ class Notecard:
         #self.categories?  maybe backed by lazy method to read table: id, title, description, selectedbycard
         #self.selectedCategories: filter categories on selectedbycard = True
 
-    def loadWithId(self, model: CardfileModel, notecardId: int) -> bool:
+    def loadWithId(self, model: CardModel, notecardId: int) -> bool:
         logger.info(f"Loading Card object from db card row with id={notecardId}")
         rslt: bool = True
         if model.open():
@@ -103,7 +103,7 @@ class Notecard:
         self.body = c.body
         self.categories = c.categories
 
-    def save(self, model: CardfileModel) -> bool:
+    def save(self, model: CardModel) -> bool:
         logger.info(f"Saving Card object to db card row")
         rslt: bool = False
         if model.open():
@@ -194,7 +194,7 @@ class CardList:
         #self.cardTitles: list[tuple[int, str]] = []
         self.cardTitles: list[CardIdTitleRec] = []
 
-    def load(self, model: CardfileModel) -> bool:
+    def load(self, model: CardModel) -> bool:
         rslt: bool = False
         if model.open():
             try:
@@ -214,7 +214,7 @@ class CardList:
 
 # end of class 'CardList'
 
-class CardfileModel:
+class CardModel:
 
     table_ddl: list[str] = [
 
@@ -272,7 +272,7 @@ class CardfileModel:
 
         # Ensure that we have a writable location on all devices.
         abs_path = write_dir.absolutePath()
-        filename = f"{abs_path}/cardfile.db"
+        filename = f"{abs_path}/notecards.db"
 
         # When using the SQLite driver, open() will create the SQLite
         # database if it doesn't exist.
@@ -354,4 +354,4 @@ class CardfileModel:
 
 #    sys.exit(0)
 
-gModel: CardfileModel
+gModel: CardModel

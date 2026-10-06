@@ -42,7 +42,7 @@ from messagehub import gMessageHub #, MessageCenter
 from datastructures import (CardRec, CategoryRec, CardIdTitleRec,
     MsgRec, MsgArgRec)
 
-class CFMainWindow(QObject):
+class MainView(QObject):
 
     def __init__(self) -> None:
         super().__init__()
@@ -59,7 +59,7 @@ class CFMainWindow(QObject):
 
     def populateCardDetails(self, sender: str, evt: MsgRec) -> None: # type: ignore
         #print(sender)
-        cRec: CardRec = evt.eventargs[0].value
+        cRec: CardRec = evt.msgArgs[0].value
         self.origCardData = deepcopy(cRec)
         #print(cRec)
         self.lineEditNotecardTitle.setText(cRec.title)
@@ -75,7 +75,7 @@ class CFMainWindow(QObject):
             i += 1
 
     def populateCardList(self, sender: str, evt: MsgRec) -> None: # type: ignore
-        clRec: list[CardIdTitleRec] = evt.eventargs[0].value
+        clRec: list[CardIdTitleRec] = evt.msgArgs[0].value
         self.listViewNotecards.clear()
         i : int = 0
         for cat in clRec:
@@ -169,11 +169,11 @@ class CFMainWindow(QObject):
         self.listViewNotecards.itemSelectionChanged.connect(
             lambda:
                 self.msgHub.post(
-                    sender='CFMainWindow',
+                    sender='MainWindow',
                     event=MsgRec(
-                        topic='CFMainWindow(input)',
-                        eventname='cardSelectionChanged',
-                        eventargs=[
+                        topic='MainWindow(input)',
+                        msgName='cardSelectionChanged',
+                        msgArgs=[
                             MsgArgRec(
                                 name='selectedRow',
                                 value=self.listViewNotecards.currentIndex().row()
@@ -218,26 +218,26 @@ class CFMainWindow(QObject):
         self.retranslateUi(MainWindow) #needed even for one lang - sets UI text literals for default language
         QMetaObject.connectSlotsByName(MainWindow)
         self.msgHub.listen(
-            lsnrName='CFMainWindow',
-            evtTopic='CFMainWindow(output)',
+            lsnrName='MainWindow',
+            evtTopic='MainWindow(output)',
             evtName='fillCardData',
             rspCall=self.populateCardDetails
         )
         self.msgHub.listen(
-            lsnrName='CFMainWindow',
-            evtTopic='CFMainWindow(output)',
+            lsnrName='MainWindow',
+            evtTopic='MainWindow(output)',
             evtName='fillCardListData',
             rspCall=self.populateCardList
         )
         self.msgHub.listen(
-            lsnrName='CFMainWindow',
-            evtTopic='CFMainWindow(output)',
+            lsnrName='MainWindow',
+            evtTopic='MainWindow(output)',
             evtName='fillStatus',
             rspCall=self.changeStatus
         )
 
     def changeStatus(self, sender: str, evt: MsgRec) -> None:
-        self.labelStatus.setText(evt.eventargs[0].value)
+        self.labelStatus.setText(evt.msgArgs[0].value)
 
     # setupUi
 
@@ -322,42 +322,42 @@ class CFMainWindow(QObject):
 
         # self.pushButtonNew.clicked.connect(self.newClicked)
         self.pushButtonNew.clicked.connect(
-            lambda: self.msgHub.post(sender='CFMainWindow',
+            lambda: self.msgHub.post(sender='MainWindow',
                                  event=MsgRec(
-                                     topic='CFMainWindow(input)',
-                                     eventname='newClicked',
-                                     eventargs=[])))
+                                     topic='MainWindow(input)',
+                                     msgName='newClicked',
+                                     msgArgs=[])))
         self.pushButtonSave.clicked.connect(
             self.saveClicked
-            # lambda: self.ec.post(sender='CFMainWindow',
+            # lambda: self.ec.post(sender='MainWindow',
             #                      event=EventRec(
-            #                          topic='CFMainWindow(input)',
-            #                          eventname='saveClicked',
-            #                          eventargs=[]
+            #                          topic='MainWindow(input)',
+            #                          msgName='saveClicked',
+            #                          msgArgs=[]
             #                      )
             # )
         )
         self.pushButtonDelete.clicked.connect(
-            lambda: self.msgHub.post(sender='CFMainWindow', 
+            lambda: self.msgHub.post(sender='MainWindow', 
                                  event=MsgRec(
-                                     topic='CFMainWindow(input)',
-                                     eventname='deleteClicked',
-                                     eventargs=[])))
+                                     topic='MainWindow(input)',
+                                     msgName='deleteClicked',
+                                     msgArgs=[])))
 
         self.vBoxDetailCommandLayout.addWidget(self.groupDetail)
         self.vBoxDetailCommandLayout.addWidget(self.hBoxEditCommands)
 
     # def newClicked(self):
     #     self.textEditNotecardBody.setText("New clicked")
-    #     evt = EventRec(topic='CFMainWindow(input)',eventname='newClicked',eventargs=[])
-    #     self.ec.post(sender='CFMainWindow', event=evt)
+    #     evt = EventRec(topic='MainWindow(input)',msgName='newClicked',msgArgs=[])
+    #     self.ec.post(sender='MainWindow', event=evt)
 
     def saveClicked(self):
-        self.msgHub.post(sender='CFMainWindow',
+        self.msgHub.post(sender='MainWindow',
                      event=MsgRec(
-                         topic='CFMainWindow(input)',
-                         eventname='saveClicked',
-                         eventargs=[
+                         topic='MainWindow(input)',
+                         msgName='saveClicked',
+                         msgArgs=[
                             MsgArgRec(
                                 name='origRow',
                                 value=self.origCardData # :CardRec

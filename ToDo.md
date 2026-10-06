@@ -15,6 +15,7 @@ To Do:
 - backup and restore commands
 - get log working right - implement throughout
 - prefer selection and scroll pos when updating notecard list (and handle new, delete ops)
+- test and debug schema and sample data creation when db not present
 
 Hold:
 - maybe try intellij ide (Idea or PyCharm)
@@ -23,8 +24,8 @@ Done:
 - get app launch working without picking file first - done - launch.json
 - put in github
 - rename EventCentral MessageHub
+- Restore window size and position on launch
 
 Future:
 - Text size
-- Restore window size and position on launch
 - Colored icons for cards based on category? user selectable?

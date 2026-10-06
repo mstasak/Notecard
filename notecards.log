@@ -1,0 +1,55 @@
+2026-10-04 14:33:10,682 | INFO | notecards | notecards.py:11 | Notecards app launched.
+2026-10-04 14:33:16,577 | INFO | cardmodel | cardmodel.py:52 | Loading Card object from db card row with id=-1
+2026-10-04 14:33:16,579 | INFO | cardmodel | cardmodel.py:97 | failed
+2026-10-04 14:33:22,095 | INFO | notecards | notecards.py:15 | Notecards app terminating.
+2026-10-04 14:36:23,009 | INFO | notecards | notecards.py:11 | Notecards app launched.
+2026-10-04 14:36:25,180 | INFO | cardmodel | cardmodel.py:52 | Loading Card object from db card row with id=1
+2026-10-04 14:36:25,183 | INFO | cardmodel | cardmodel.py:97 | success
+2026-10-04 14:36:25,755 | INFO | cardmodel | cardmodel.py:52 | Loading Card object from db card row with id=2
+2026-10-04 14:36:25,757 | INFO | cardmodel | cardmodel.py:97 | success
+2026-10-04 14:36:26,467 | INFO | cardmodel | cardmodel.py:52 | Loading Card object from db card row with id=4
+2026-10-04 14:36:26,469 | INFO | cardmodel | cardmodel.py:97 | success
+2026-10-04 14:36:26,939 | INFO | cardmodel | cardmodel.py:52 | Loading Card object from db card row with id=6
+2026-10-04 14:36:26,941 | INFO | cardmodel | cardmodel.py:97 | success
+2026-10-04 14:36:28,407 | INFO | notecards | notecards.py:15 | Notecards app terminating.
+2026-10-04 15:06:45,775 | INFO | notecards | notecards.py:11 | Notecards app launched.
+2026-10-04 15:06:47,628 | INFO | cardmodel | cardmodel.py:52 | Loading Card object from db card row with id=1
+2026-10-04 15:06:47,630 | INFO | cardmodel | cardmodel.py:97 | success
+2026-10-04 15:06:48,307 | INFO | cardmodel | cardmodel.py:52 | Loading Card object from db card row with id=4
+2026-10-04 15:06:48,309 | INFO | cardmodel | cardmodel.py:97 | success
+2026-10-04 15:06:48,939 | INFO | cardmodel | cardmodel.py:52 | Loading Card object from db card row with id=7
+2026-10-04 15:06:48,941 | INFO | cardmodel | cardmodel.py:97 | success
+2026-10-04 15:06:49,691 | INFO | cardmodel | cardmodel.py:52 | Loading Card object from db card row with id=3
+2026-10-04 15:06:49,693 | INFO | cardmodel | cardmodel.py:97 | success
+2026-10-04 15:06:51,198 | INFO | notecards | notecards.py:15 | Notecards app terminating.
+2026-10-04 15:08:52,598 | INFO | notecards | notecards.py:11 | Notecards app launched.
+2026-10-04 15:08:55,042 | INFO | notecards | notecards.py:15 | Notecards app terminating.
+2026-10-04 17:24:22,714 | INFO | notecards | notecards.py:11 | Notecards app launched.
+2026-10-04 17:24:29,484 | INFO | notecards | notecards.py:15 | Notecards app terminating.
+2026-10-05 21:54:21,828 | INFO | notecards | notecards.py:11 | Notecards app launched.
+2026-10-05 21:54:27,239 | INFO | notecards | notecards.py:15 | Notecards app terminating.
+2026-10-05 21:54:31,835 | INFO | notecards | notecards.py:11 | Notecards app launched.
+2026-10-05 21:54:38,617 | INFO | notecards | notecards.py:15 | Notecards app terminating.
+2026-10-05 21:54:42,013 | INFO | notecards | notecards.py:11 | Notecards app launched.
+2026-10-05 21:54:44,470 | INFO | notecards | notecards.py:15 | Notecards app terminating.
+2026-10-05 21:57:20,503 | INFO | notecards | notecards.py:11 | Notecards app launched.
+2026-10-05 21:59:29,945 | INFO | notecards | notecards.py:11 | Notecards app launched.
+2026-10-05 21:59:38,696 | INFO | notecards | notecards.py:11 | Notecards app launched.
+2026-10-05 22:03:11,170 | INFO | notecards | notecards.py:11 | Notecards app launched.
+2026-10-05 22:06:32,652 | INFO | notecards | notecards.py:11 | Notecards app launched.
+2026-10-05 22:08:07,423 | INFO | notecards | notecards.py:11 | Notecards app launched.
+2026-10-05 22:11:27,335 | INFO | notecards | notecards.py:11 | Notecards app launched.
+2026-10-05 22:12:01,285 | INFO | notecards | notecards.py:11 | Notecards app launched.
+2026-10-05 22:16:33,734 | INFO | notecards | notecards.py:11 | Notecards app launched.
+2026-10-05 22:20:12,869 | INFO | notecards | notecards.py:11 | Notecards app launched.
+2026-10-05 22:22:54,465 | INFO | notecards | notecards.py:11 | Notecards app launched.
+2026-10-05 22:23:40,233 | INFO | notecards | notecards.py:11 | Notecards app launched.
+2026-10-05 22:24:01,234 | INFO | notecards | notecards.py:11 | Notecards app launched.
+2026-10-05 22:24:49,892 | INFO | notecards | notecards.py:15 | Notecards app terminating.
+2026-10-05 22:24:55,841 | INFO | notecards | notecards.py:11 | Notecards app launched.
+2026-10-05 22:25:09,336 | INFO | notecards | notecards.py:15 | Notecards app terminating.
+2026-10-05 22:25:17,096 | INFO | notecards | notecards.py:11 | Notecards app launched.
+2026-10-05 22:38:07,286 | INFO | notecards | notecards.py:11 | Notecards app launched.
+2026-10-05 22:38:14,391 | INFO | notecards | notecards.py:15 | Notecards app terminating.
+2026-10-05 22:38:20,247 | INFO | notecards | notecards.py:11 | Notecards app launched.
+2026-10-05 22:38:23,546 | INFO | notecards | notecards.py:15 | Notecards app terminating.

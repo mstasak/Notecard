@@ -1,4 +1,4 @@
-import application
+import cardapp
 import sys
 import logging
 
@@ -10,7 +10,7 @@ def main():
             "%(message)s")
     logger.info("Notecards app launched.")
     #print("Hello") #shows me if I'm looking at console output, in VS Code
-    gApp = application.CardFileApp(orgName="mstasak", orgDomain="org", appName="notecards", args=sys.argv)
+    gApp = cardapp.CardApp(orgName="mstasak", orgDomain="org", appName="notecards", args=sys.argv)
     exitVal = gApp.run()
     logger.info("Notecards app terminating.")
     sys.exit(exitVal)
